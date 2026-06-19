@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact International Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --orange: #F4894B;
+    --orange-dark: #D97635;
+    --green: #1B4332;
+    --green-light: #2D6A4F;
+    --white: #FFFFFF;
+    --off-white: #FAF9F7;
+    --light: #F5F0EB;
+    --gray: #6B7280;
+    --dark: #111827;
+    --text: #1F2937;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 72px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1.2;
+  }
+
+  .nav-logo-text span {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--orange);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange) !important;
+    color: var(--white) !important;
+    padding: 10px 24px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--orange-dark) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--green);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    background: var(--off-white);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--green);
+    z-index: 0;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 1;
+    padding: 80px 60px 80px 80px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--green);
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 2px solid var(--green);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover { background: var(--green); color: var(--white); }
+
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    padding: 80px 80px 80px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .hero-stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 28px 32px;
+    border-left: 4px solid var(--orange);
+  }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .hero-stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1px;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 100px 80px;
+    background: var(--white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::after {
+    content: '';
+    display: block;
+    flex: 1;
+    max-width: 40px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-card {
+    background: var(--green);
+    color: var(--white);
+    padding: 40px;
+    margin-bottom: 16px;
+  }
+
+  .about-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  .about-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+  }
+
+  .about-card-secondary {
+    background: var(--light);
+    padding: 32px 40px;
+  }
+
+  .about-card-secondary h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  .about-card-secondary p {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* ── REGAI / BIO ── */
+  .bio {
+    padding: 100px 80px;
+    background: var(--light);
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .bio-portrait {
+    position: relative;
+  }
+
+  .bio-portrait-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+  .bio-portrait-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .bio-portrait-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--orange);
+  }
+
+  .bio-portrait-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+
+  .bio-name-card {
+    background: var(--orange);
+    color: var(--white);
+    padding: 20px 24px;
+    margin-top: -2px;
+  }
+
+  .bio-name-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .bio-name-card p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .bio-credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0;
+  }
+
+  .credential {
+    background: var(--green);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .bio-text p {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  /* ── COURSES ── */
+  .courses {
+    padding: 100px 80px;
+    background: var(--white);
+  }
+
+  .courses-header {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .course-card {
+    border: 1px solid #E5E7EB;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .course-card:hover {
+    box-shadow: 0 16px 48px rgba(27,67,50,0.12);
+    transform: translateY(-6px);
+  }
+
+  .course-card-top {
+    background: var(--green);
+    padding: 32px 28px 24px;
+    position: relative;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .course-card:nth-child(2) .course-card-top { background: #2D6A4F; }
+  .course-card:nth-child(3) .course-card-top { background: #1B4332; }
+  .course-card:nth-child(4) .course-card-top { background: #355E3B; }
+  .course-card:nth-child(5) .course-card-top { background: #254D32; }
+  .course-card:nth-child(6) .course-card-top { background: #1A3A2A; }
+
+  .course-number {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+  }
+
+  .course-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .course-card-body {
+    padding: 24px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .course-lessons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  .course-lessons-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .course-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .course-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #F3F4F6;
+  }
+
+  .course-btn-wa {
+    flex: 1;
+    background: #25D366;
+    color: var(--white);
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .course-btn-wa:hover { opacity: 0.85; }
+
+  .course-btn-email {
+    flex: 1;
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .course-btn-email:hover { opacity: 0.85; }
+
+  /* ── MISSION VISION ── */
+  .mv {
+    padding: 100px 80px;
+    background: var(--green);
+  }
+
+  .mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .mv-card {}
+  .mv-card .eyebrow { color: var(--orange); }
+  .mv-card .eyebrow::after { background: var(--orange); }
+  .mv-card .section-title { color: var(--white); font-size: 32px; }
+  .mv-card .section-body { color: rgba(255,255,255,0.65); }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 100px 80px;
+    background: var(--off-white);
+  }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  .contact-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+
+  .contact-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .form-group { margin-bottom: 16px; }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    background: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 14px 16px;
+    outline: none;
+    color: var(--text);
+    border-radius: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--orange); }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group select option { background: var(--white); }
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  #successMsg {
+    display: none;
+    background: #ECFDF5;
+    border: 1px solid #6EE7B7;
+    color: #065F46;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+
+  .submit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .wa-submit {
+    background: #25D366;
+    color: var(--white);
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border-radius: 2px;
+  }
+
+  .wa-submit:hover { opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 60px 80px 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+  }
+
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .footer-brand-name span { color: var(--orange); }
+
+  .footer-brand-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 300px;
+    margin-bottom: 24px;
+  }
+
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--orange); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 24px; border-bottom: 2px solid var(--orange); gap: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero::before { display: none; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { background: var(--green); padding: 40px 24px 60px; flex-direction: row; flex-wrap: wrap; }
+    .hero-stat { flex: 1; min-width: 140px; }
+    .about, .bio, .courses, .mv, .contact { padding: 60px 24px; }
+    .about-grid, .bio-grid, .mv-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .courses-grid { grid-template-columns: 1fr; }
+    .courses-header { flex-direction: column; align-items: flex-start; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    footer { padding: 48px 24px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .submit-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">
+    <img src="images/logo.jpg" alt="IIL Logo">
+    <div class="nav-logo-text">
+      Impact International
+      <span>Learning</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#regai">Meet Regai</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#contact" class="nav-cta">Enrol Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Impact International Learning</div>
+    <h1 class="hero-title">
+      Positively<br>
+      Impacting<br>
+      <em>Humanity</em><br>
+      Through Education
+    </h1>
+    <p class="hero-sub">Evidence-based learning, inclusive practices, and ethical behaviour support — for educators, therapists, parents, and professionals.</p>
+    <div class="hero-actions">
+      <a href="#courses" class="btn-primary">Browse Courses</a>
+      <a href="#about" class="btn-outline">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Professional Courses Available</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">ABA</div>
+      <div class="hero-stat-label">Applied Behaviour Analysis Certified</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">IBA</div>
+      <div class="hero-stat-label">International Behavior Analyst</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-grid">
+    <div>
+      <div class="eyebrow">Our Story</div>
+      <h2 class="section-title">About Impact International Learning</h2>
+      <p class="section-body">Founded from a simple yet profound observation made during early teaching years in Zimbabwe, Impact International Learning was born from a desire to create meaningful change for learners who went unnoticed.</p>
+      <p class="section-body">In 2012, many learners faced academic, social, and behavioural challenges while awareness of learning differences and developmental disabilities was limited. Today, Impact International Learning serves as a platform for education, training, supervision, consultation, and professional development.</p>
+      <p class="section-body">We believe every individual deserves the opportunity to learn, grow, and thrive — regardless of their circumstances or challenges.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <h3>Our Mission</h3>
+        <p>To positively impact humanity by empowering individuals, families, educators, and professionals through evidence-based learning, inclusive practices, and ethical behaviour support.</p>
+      </div>
+      <div class="about-card-secondary">
+        <h3>Our Vision</h3>
+        <p>To be a globally trusted provider of education, training, consultation, supervision, and behaviour support services that empower individuals, families, and professionals to achieve meaningful and sustainable outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGAI BIO -->
+<section id="regai" class="bio">
+  <div class="bio-grid">
+    <div class="bio-portrait">
+      <div class="bio-portrait-img">
+        <img src="images/regai.jpg" alt="Regai Peter Zata">
+      </div>
+      <div class="bio-name-card">
+        <h3>Regai Peter Zata</h3>
+        <p>Founder & Lead Trainer</p>
+      </div>
+    </div>
+    <div class="bio-text">
+      <div class="eyebrow">Meet the Founder</div>
+      <h2 class="section-title">Regai Peter Zata</h2>
+      <div class="bio-credentials">
+        <span class="credential">IBA</span>
+        <span class="credential">QASP-S</span>
+        <span class="credential">SEN Teacher</span>
+        <span class="credential">Behaviour Analyst</span>
+        <span class="credential">UAE MOE Licensed</span>
+      </div>
+      <p>Regai Peter Zata is a UAE Ministry of Education licensed Special Educational Needs (SEN) Teacher, Behaviour Analyst, and Professional Trainer dedicated to improving the lives of individuals with diverse learning and developmental needs.</p>
+      <p>With experience across mainstream schools, autism centres, and rehabilitation settings, he combines evidence-based educational practices with behavioural science to create meaningful and lasting outcomes for learners, families, and professionals.</p>
+      <p>Currently serving as a Special Education Needs Teacher at a mainstream IB school in the UAE, Regai specializes in designing individualized learning pathways, developing effective support plans, and helping learners access education in ways that build confidence, independence, and long-term success.</p>
+      <p>Regai holds a Bachelor of Science in Psychology and is currently pursuing a Master of Arts in Special and Additional Learning Needs at the University of East London.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="courses">
+  <div class="courses-header">
+    <div>
+      <div class="eyebrow">What We Offer</div>
+      <h2 class="section-title">Our Courses</h2>
+    </div>
+    <a href="#contact" class="btn-primary">Enquire to Enrol →</a>
+  </div>
+  <div class="courses-grid">
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">01</div>
+        <div class="course-card-title">Basic Principles & Characteristics of Behavior</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 37 Lessons</div>
+        <p class="course-desc">A foundational course covering the core principles and characteristics of human behaviour through the lens of Applied Behaviour Analysis.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Basic%20Principles%20%26%20Characteristics%20of%20Behavior%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Basic%20Principles%20%26%20Characteristics%20of%20Behavior" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">02</div>
+        <div class="course-card-title">Autism Spectrum Disorders & Specific ABA Treatment Strategies</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 24 Lessons</div>
+        <p class="course-desc">An in-depth exploration of Autism Spectrum Disorders combined with evidence-based ABA treatment strategies for effective intervention.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Autism%20Spectrum%20Disorders%20%26%20ABA%20Treatment%20Strategies%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Autism%20Spectrum%20Disorders%20%26%20ABA%20Treatment%20Strategies" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">03</div>
+        <div class="course-card-title">Behavior Assessment</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 51 Lessons</div>
+        <p class="course-desc">Comprehensive training in behavioural assessment techniques, functional behaviour assessment, and data-driven decision making.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Behavior%20Assessment%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Behavior%20Assessment" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">04</div>
+        <div class="course-card-title">Ethics, Personnel Management & Supervision</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 49 Lessons</div>
+        <p class="course-desc">Essential training in ethical practice, personnel management, and professional supervision within behaviour analysis and education settings.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Ethics%2C%20Personnel%20Management%20%26%20Supervision%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Ethics%2C%20Personnel%20Management%20%26%20Supervision" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">05</div>
+        <div class="course-card-title">Experimental Evaluation, Intervention & Behavior Change Considerations</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 41 Lessons</div>
+        <p class="course-desc">Advanced training in experimental evaluation methodologies, evidence-based intervention design, and behaviour change considerations.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Experimental%20Evaluation%2C%20Intervention%20%26%20Behavior%20Change%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Experimental%20Evaluation%20Intervention%20%26%20Behavior%20Change" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-card-top">
+        <div class="course-number">06</div>
+        <div class="course-card-title">Behavior Change Procedures</div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 108 Lessons</div>
+        <p class="course-desc">The most comprehensive course in the catalogue — a deep dive into behaviour change procedures, reinforcement strategies, and practical implementation.</p>
+        <div class="course-actions">
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Behavior%20Change%20Procedures%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Behavior%20Change%20Procedures" class="course-btn-email">📧 Email</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div class="contact-header">
+      <div class="eyebrow" style="justify-content:center;">Get In Touch</div>
+      <h2 class="section-title">Enrol or Enquire</h2>
+      <p style="color:var(--gray);font-size:16px;margin-top:8px;">Reach out via the form, email, or WhatsApp — Regai responds personally.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-row">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val">regaiz@outlook.com</div>
+          </div>
+        </div>
+        <div class="contact-info-row">
+          <div class="contact-icon">💬</div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-val">+971 58 550 6346</div>
+          </div>
+        </div>
+        <div class="contact-info-row">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Based In</div>
+            <div class="contact-val">UAE — Serving Globally</div>
+          </div>
+        </div>
+        <div class="contact-info-row">
+          <div class="contact-icon">🎓</div>
+          <div>
+            <div class="contact-label">Specialisation</div>
+            <div class="contact-val">ABA · SEN · Behaviour Support · Professional Development</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="successMsg">✅ Message sent! Regai will get back to you shortly.</div>
+        <form id="contactForm" action="https://formspree.io/f/mnjykojj" method="POST" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" name="name" id="fname" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" id="femail" placeholder="you@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Course of Interest</label>
+            <select name="course" id="fcourse">
+              <option value="">Select a course...</option>
+              <option>Basic Principles & Characteristics of Behavior</option>
+              <option>Autism Spectrum Disorders & ABA Treatment Strategies</option>
+              <option>Behavior Assessment</option>
+              <option>Ethics, Personnel Management & Supervision</option>
+              <option>Experimental Evaluation, Intervention & Behavior Change</option>
+              <option>Behavior Change Procedures</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea name="message" id="fmessage" placeholder="Tell us about yourself and what you're looking for..."></textarea>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn-primary" style="width:100%;font-family:'Inter',sans-serif;">📧 Send via Email</button>
+            <button type="button" class="wa-submit" onclick="sendWhatsApp()">💬 Send via WhatsApp</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Impact International <span>Learning</span></div>
+      <p class="footer-brand-tagline">Positively Impacting Humanity Through Education, Behaviour Support, and Professional Development.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navigate</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#regai">Meet Regai</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="mailto:regaiz@outlook.com">regaiz@outlook.com</a></li>
+        <li><a href="tel:+971585506346">+971 58 550 6346</a></li>
+        <li><a href="#">UAE — Serving Globally</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Impact International Learning. All Rights Reserved.</p>
+    <p style="color:rgba(255,255,255,0.2);font-size:12px;">Founded by Regai Peter Zata</p>
+  </div>
+</footer>
+
+<script>
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const btn = form.querySelector('button[type="submit"]');
+    const msg = document.getElementById('successMsg');
+    btn.textContent = 'Sending...'; btn.disabled = true;
+    try {
+      const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+      if (res.ok) {
+        form.reset(); msg.style.display = 'block';
+        btn.textContent = '✅ Sent!';
+        setTimeout(() => { msg.style.display='none'; btn.textContent='📧 Send via Email'; btn.disabled=false; }, 5000);
+      } else { throw new Error(); }
+    } catch { alert('Something went wrong. Please use WhatsApp instead.'); btn.textContent='📧 Send via Email'; btn.disabled=false; }
+  }
+
+  function sendWhatsApp() {
+    const name = document.getElementById('fname').value.trim();
+    const course = document.getElementById('fcourse').value.trim();
+    const message = document.getElementById('fmessage').value.trim();
+    if (!name) { alert('Please enter your name first.'); return; }
+    const text = `Hello Regai! 👋\n\n*New Enquiry — Impact International Learning*\n─────────────────\n👤 Name: ${name}\n🎓 Course: ${course || 'Not specified'}\n💬 Message: ${message || 'No message'}\n─────────────────\nSent from impactinternationallearning.com`;
+    window.open(`https://wa.me/971585506346?text=${encodeURIComponent(text)}`, '_blank');
+  }
+</script>
+</body>
+</html>
