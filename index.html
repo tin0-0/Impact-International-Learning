@@ -127,19 +127,73 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    background: var(--off-white);
+    background: url('images/hero-bg.jpg') center/cover no-repeat;
     overflow: hidden;
     position: relative;
+    /* Make image pop — increase brightness and saturation */
+    filter: none;
   }
 
   .hero::before {
     content: '';
     position: absolute;
-    top: 0; right: 0;
-    width: 50%;
-    height: 100%;
-    background: var(--green);
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(2,11,24,0.88) 0%,
+      rgba(2,11,24,0.65) 45%,
+      rgba(27,67,50,0.80) 100%
+    );
     z-index: 0;
+  }
+
+  /* Boost the bg image brightness with a pseudo filter layer */
+  .hero-vivid {
+    position: absolute;
+    inset: 0;
+    background: url('images/hero-bg.jpg') center/cover no-repeat;
+    filter: brightness(1.6) saturate(1.8) contrast(1.15);
+    mix-blend-mode: screen;
+    opacity: 0.25;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── SHOOTING STARS ── */
+  .shooting-stars {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255,255,255,0.8);
+    animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+    top: var(--top, 50%);
+    left: var(--left, 50%);
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   .hero-left {
@@ -173,7 +227,7 @@
     font-size: clamp(40px, 5vw, 64px);
     font-weight: 900;
     line-height: 1.05;
-    color: var(--green);
+    color: var(--white);
     margin-bottom: 24px;
   }
 
@@ -184,7 +238,7 @@
 
   .hero-sub {
     font-size: 17px;
-    color: var(--gray);
+    color: rgba(255,255,255,0.7);
     line-height: 1.7;
     max-width: 480px;
     margin-bottom: 40px;
@@ -842,7 +896,7 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#regai">Meet Regai</a></li>
-    <li><a href="#courses">Courses</a></li>
+    <li><a href="#courses">Services</a></li>
     <li><a href="#contact" class="nav-cta">Enrol Now</a></li>
   </ul>
   <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -852,8 +906,11 @@
 
 <!-- HERO -->
 <section id="home" class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">Impact International Learning</div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <!-- Vivid boost layer -->
+  <div class="hero-vivid"></div>
+<div class="hero-left">
+    <div class="hero-eyebrow" style="color:var(--orange);">Impact International Learning</div>
     <h1 class="hero-title">
       Positively<br>
       Impacting<br>
@@ -862,14 +919,14 @@
     </h1>
     <p class="hero-sub">Evidence-based learning, inclusive practices, and ethical behaviour support — for educators, therapists, parents, and professionals.</p>
     <div class="hero-actions">
-      <a href="#courses" class="btn-primary">Browse Courses</a>
+      <a href="#courses" class="btn-primary">Our Services</a>
       <a href="#about" class="btn-outline">Learn More</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-stat">
-      <div class="hero-stat-num">6</div>
-      <div class="hero-stat-label">Professional Courses Available</div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Professional Services Offered</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">ABA</div>
@@ -940,7 +997,7 @@
   <div class="courses-header">
     <div>
       <div class="eyebrow">What We Offer</div>
-      <h2 class="section-title">Our Courses</h2>
+      <h2 class="section-title">Services Offered</h2>
     </div>
     <a href="#contact" class="btn-primary">Enquire to Enrol →</a>
   </div>
@@ -949,14 +1006,22 @@
     <div class="course-card">
       <div class="course-card-top">
         <div class="course-number">01</div>
-        <div class="course-card-title">Basic Principles & Characteristics of Behavior</div>
+        <div class="course-card-title">IBA — International Behavior Analyst Course</div>
       </div>
       <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 37 Lessons</div>
-        <p class="course-desc">A foundational course covering the core principles and characteristics of human behaviour through the lens of Applied Behaviour Analysis.</p>
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 6 Core Modules</div>
+        <p class="course-desc">A complete certification pathway covering the full scope of Applied Behaviour Analysis practice, built from six modules:</p>
+        <ul style="margin:0 0 16px;padding-left:18px;color:var(--gray);font-size:14px;line-height:1.7;">
+          <li>Basic Principles & Characteristics of Behavior</li>
+          <li>Autism Spectrum Disorders & Specific ABA Treatment Strategies</li>
+          <li>Behavior Assessment</li>
+          <li>Ethics, Personnel Management & Supervision</li>
+          <li>Experimental Evaluation, Intervention & Behavior Change Considerations</li>
+          <li>Behavior Change Procedures</li>
+        </ul>
         <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Basic%20Principles%20%26%20Characteristics%20of%20Behavior%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Basic%20Principles%20%26%20Characteristics%20of%20Behavior" class="course-btn-email">📧 Email</a>
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20the%20IBA%20%E2%80%94%20International%20Behavior%20Analyst%20Course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20IBA%20Course" class="course-btn-email">📧 Email</a>
         </div>
       </div>
     </div>
@@ -964,14 +1029,14 @@
     <div class="course-card">
       <div class="course-card-top">
         <div class="course-number">02</div>
-        <div class="course-card-title">Autism Spectrum Disorders & Specific ABA Treatment Strategies</div>
+        <div class="course-card-title">IBT & ABAT 40-Hour Courses</div>
       </div>
       <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 24 Lessons</div>
-        <p class="course-desc">An in-depth exploration of Autism Spectrum Disorders combined with evidence-based ABA treatment strategies for effective intervention.</p>
+        <div class="course-lessons"><span class="course-lessons-dot"></span> 40 Hour Intensive</div>
+        <p class="course-desc">Intensive 40-hour training for Interventionist Behaviour Technicians (IBT) and Applied Behaviour Analysis Technicians (ABAT), preparing candidates with the practical skills and competencies required to work directly in behaviour support roles.</p>
         <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Autism%20Spectrum%20Disorders%20%26%20ABA%20Treatment%20Strategies%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Autism%20Spectrum%20Disorders%20%26%20ABA%20Treatment%20Strategies" class="course-btn-email">📧 Email</a>
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20the%20IBT%20%26%20ABAT%2040%20Hour%20Courses." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20IBT%20%26%20ABAT%2040%20Hour%20Courses" class="course-btn-email">📧 Email</a>
         </div>
       </div>
     </div>
@@ -979,59 +1044,14 @@
     <div class="course-card">
       <div class="course-card-top">
         <div class="course-number">03</div>
-        <div class="course-card-title">Behavior Assessment</div>
+        <div class="course-card-title">Supervision Services</div>
       </div>
       <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 51 Lessons</div>
-        <p class="course-desc">Comprehensive training in behavioural assessment techniques, functional behaviour assessment, and data-driven decision making.</p>
+        <div class="course-lessons"><span class="course-lessons-dot"></span> Ongoing Support</div>
+        <p class="course-desc">Structured, professional supervision for candidates working toward their IBA or ABAT certification — guided fieldwork hours, case consultation, and accountability through every stage of certification.</p>
         <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Behavior%20Assessment%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Behavior%20Assessment" class="course-btn-email">📧 Email</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="course-card-top">
-        <div class="course-number">04</div>
-        <div class="course-card-title">Ethics, Personnel Management & Supervision</div>
-      </div>
-      <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 49 Lessons</div>
-        <p class="course-desc">Essential training in ethical practice, personnel management, and professional supervision within behaviour analysis and education settings.</p>
-        <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Ethics%2C%20Personnel%20Management%20%26%20Supervision%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Ethics%2C%20Personnel%20Management%20%26%20Supervision" class="course-btn-email">📧 Email</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="course-card-top">
-        <div class="course-number">05</div>
-        <div class="course-card-title">Experimental Evaluation, Intervention & Behavior Change Considerations</div>
-      </div>
-      <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 41 Lessons</div>
-        <p class="course-desc">Advanced training in experimental evaluation methodologies, evidence-based intervention design, and behaviour change considerations.</p>
-        <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Experimental%20Evaluation%2C%20Intervention%20%26%20Behavior%20Change%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Experimental%20Evaluation%20Intervention%20%26%20Behavior%20Change" class="course-btn-email">📧 Email</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="course-card-top">
-        <div class="course-number">06</div>
-        <div class="course-card-title">Behavior Change Procedures</div>
-      </div>
-      <div class="course-card-body">
-        <div class="course-lessons"><span class="course-lessons-dot"></span> 108 Lessons</div>
-        <p class="course-desc">The most comprehensive course in the catalogue — a deep dive into behaviour change procedures, reinforcement strategies, and practical implementation.</p>
-        <div class="course-actions">
-          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20enrolling%20in%20the%20Behavior%20Change%20Procedures%20course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
-          <a href="mailto:regaiz@outlook.com?subject=Enrolment%20Enquiry%20-%20Behavior%20Change%20Procedures" class="course-btn-email">📧 Email</a>
+          <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20Supervision%20Services." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
+          <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20Supervision%20Services" class="course-btn-email">📧 Email</a>
         </div>
       </div>
     </div>
@@ -1084,7 +1104,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Your Name</label>
-              <input type="text" name="name" id="fname" placeholder="John Doe" required>
+              <input type="text" name="name" id="fname" placeholder="Joshua Zulu" required>
             </div>
             <div class="form-group">
               <label class="form-label">Email</label>
@@ -1092,15 +1112,12 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Course of Interest</label>
+            <label class="form-label">Service of Interest</label>
             <select name="course" id="fcourse">
-              <option value="">Select a course...</option>
-              <option>Basic Principles & Characteristics of Behavior</option>
-              <option>Autism Spectrum Disorders & ABA Treatment Strategies</option>
-              <option>Behavior Assessment</option>
-              <option>Ethics, Personnel Management & Supervision</option>
-              <option>Experimental Evaluation, Intervention & Behavior Change</option>
-              <option>Behavior Change Procedures</option>
+              <option value="">Select a service...</option>
+              <option>IBA — International Behavior Analyst Course</option>
+              <option>IBT & ABAT 40-Hour Courses</option>
+              <option>Supervision Services</option>
               <option>General Enquiry</option>
             </select>
           </div>
@@ -1131,7 +1148,7 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#regai">Meet Regai</a></li>
-        <li><a href="#courses">Courses</a></li>
+        <li><a href="#courses">Services</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -1151,6 +1168,136 @@
 </footer>
 
 <script>
+  // ── CANVAS: TWINKLING STARS + SHOOTING STARS ──
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    initTwinkle();
+  }
+
+  // ── TWINKLING STARS ──
+  let twinkles = [];
+  function initTwinkle() {
+    twinkles = [];
+    for (let i = 0; i < 150; i++) {
+      twinkles.push({
+        x: rand(0, canvas.width),
+        y: rand(0, canvas.height),
+        r: rand(1, 3.2),
+        alpha: rand(0.3, 1),
+        speed: rand(0.01, 0.04),
+        dir: Math.random() > 0.5 ? 1 : -1
+      });
+    }
+  }
+
+  // ── SHOOTING STARS ──
+  let shootingStars = [];
+
+  function spawnShootingStar() {
+    const angle = rand(-0.6, -0.3); // downward-right diagonal
+    const speed = rand(8, 14);
+    shootingStars.push({
+      x: rand(0, canvas.width * 0.7),
+      y: rand(0, canvas.height * 0.5),
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      len: rand(80, 160),
+      life: 1,
+      decay: rand(0.012, 0.025)
+    });
+  }
+
+  // Spawn a shooting star every 2-4 seconds
+  setInterval(spawnShootingStar, rand(2000, 4000));
+  spawnShootingStar();
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw twinkling stars (with sparkle glow)
+    twinkles.forEach(t => {
+      t.alpha += t.speed * t.dir;
+      if (t.alpha >= 1) { t.alpha = 1; t.dir = -1; }
+      if (t.alpha <= 0.15) { t.alpha = 0.15; t.dir = 1; }
+
+      // Outer glow
+      const glow = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, t.r * 4);
+      glow.addColorStop(0, `rgba(255, 250, 220, ${t.alpha * 0.9})`);
+      glow.addColorStop(1, `rgba(255, 250, 220, 0)`);
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, t.r * 4, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // Bright core
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, t.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${t.alpha})`;
+      ctx.fill();
+
+      // 4-point sparkle cross on the brightest stars
+      if (t.alpha > 0.75) {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${(t.alpha - 0.75) * 2})`;
+        ctx.lineWidth = 0.8;
+        const len = t.r * 5;
+        ctx.beginPath();
+        ctx.moveTo(t.x - len, t.y);
+        ctx.lineTo(t.x + len, t.y);
+        ctx.moveTo(t.x, t.y - len);
+        ctx.lineTo(t.x, t.y + len);
+        ctx.stroke();
+      }
+    });
+
+    // Draw shooting stars
+    shootingStars = shootingStars.filter(ss => ss.life > 0);
+    shootingStars.forEach(ss => {
+      const tailX = ss.x - ss.vx * (ss.len / 10);
+      const tailY = ss.y - ss.vy * (ss.len / 10);
+
+      // Gradient tail → bright head
+      const grad = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+      grad.addColorStop(0, `rgba(255,255,255,0)`);
+      grad.addColorStop(0.6, `rgba(255,245,200,${ss.life * 0.3})`);
+      grad.addColorStop(1, `rgba(255,240,200,${ss.life})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(ss.x, ss.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.8;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Glowing head
+      const glow = ctx.createRadialGradient(ss.x, ss.y, 0, ss.x, ss.y, 5);
+      glow.addColorStop(0, `rgba(255,255,255,${ss.life})`);
+      glow.addColorStop(1, `rgba(255,255,255,0)`);
+      ctx.beginPath();
+      ctx.arc(ss.x, ss.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // Move & fade
+      ss.x += ss.vx;
+      ss.y += ss.vy;
+      ss.life -= ss.decay;
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  resize();
+  draw();
+
+  // ── FORM HANDLERS ──
   async function handleSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
