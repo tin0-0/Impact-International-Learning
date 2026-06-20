@@ -229,6 +229,7 @@
     line-height: 1.05;
     color: var(--white);
     margin-bottom: 24px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.75), 0 1px 4px rgba(0,0,0,0.9);
   }
 
   .hero-title em {
@@ -242,6 +243,7 @@
     line-height: 1.7;
     max-width: 480px;
     margin-bottom: 40px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.7);
   }
 
   .hero-actions {
@@ -267,8 +269,8 @@
   .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
 
   .btn-outline {
-    border: 2px solid var(--green);
-    color: var(--green);
+    border: 2px solid rgba(255,255,255,0.8);
+    color: var(--white);
     font-size: 14px;
     font-weight: 700;
     padding: 14px 32px;
@@ -278,7 +280,7 @@
     transition: all 0.2s;
   }
 
-  .btn-outline:hover { background: var(--green); color: var(--white); }
+  .btn-outline:hover { background: var(--white); color: var(--green); }
 
   .hero-right {
     position: relative;
@@ -868,7 +870,7 @@
     .hero { grid-template-columns: 1fr; min-height: auto; }
     .hero::before { display: none; }
     .hero-left { padding: 60px 24px 40px; }
-    .hero-right { background: var(--green); padding: 40px 24px 60px; flex-direction: row; flex-wrap: wrap; }
+    .hero-right { background: rgba(2,11,24,0.55); padding: 40px 24px 60px; flex-direction: row; flex-wrap: wrap; }
     .hero-stat { flex: 1; min-width: 140px; }
     .about, .bio, .courses, .mv, .contact { padding: 60px 24px; }
     .about-grid, .bio-grid, .mv-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1104,7 +1106,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Your Name</label>
-              <input type="text" name="name" id="fname" placeholder="Joshua Zulu" required>
+              <input type="text" name="name" id="fname" placeholder="John Doe" required>
             </div>
             <div class="form-group">
               <label class="form-label">Email</label>
