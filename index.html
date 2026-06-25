@@ -223,19 +223,20 @@
   }
 
   .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(40px, 5vw, 64px);
-    font-weight: 900;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 24px;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.75), 0 1px 4px rgba(0,0,0,0.9);
-  }
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 3.8vw, 48px); /* Reduced from 40px-64px to 32px-48px */
+  font-weight: 900;
+  line-height: 1.15; /* Increased from 1.05 for cleaner line spacing */
+  color: var(--white);
+  margin-bottom: 24px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.75), 0 1px 4px rgba(0,0,0,0.9);
+}
 
-  .hero-title em {
-    font-style: normal;
-    color: var(--orange);
-  }
+.hero-title em {
+  font-style: normal;
+  color: var(--orange);
+}
+
 
   .hero-sub {
     font-size: 17px;
@@ -670,6 +671,17 @@
   .mv-card .section-title { color: var(--white); font-size: 32px; }
   .mv-card .section-body { color: rgba(255,255,255,0.65); }
 
+  /* ── ACCREDITATION ── */
+  .accred { background: var(--light); padding: 80px 80px; text-align: center; }
+  .accred-header { margin-bottom: 48px; }
+  .accred-header h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--green); margin-bottom: 16px; }
+  .accred-header p { font-size: 16px; color: var(--gray); line-height: 1.7; max-width: 640px; margin: 0 auto; }
+  .accred-logos { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 8px; }
+  .accred-logo-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .accred-logo-item img { height: 110px; width: auto; object-fit: contain; transition: transform 0.2s; }
+  .accred-logo-item img:hover { transform: scale(1.05); }
+  .accred-logo-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--gray); text-transform: uppercase; text-align: center; max-width: 130px; line-height: 1.4; }
+
   /* ── CONTACT ── */
   .contact {
     padding: 100px 80px;
@@ -899,6 +911,8 @@
     <li><a href="#about">About</a></li>
     <li><a href="#regai">Meet Regai</a></li>
     <li><a href="#courses">Services</a></li>
+    <li><a href="faqs.html">FAQs</a></li>
+    <li><a href="testimonials.html">Testimonials</a></li>
     <li><a href="#contact" class="nav-cta">Enrol Now</a></li>
   </ul>
   <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -914,12 +928,12 @@
 <div class="hero-left">
     <div class="hero-eyebrow" style="color:var(--orange);">Impact International Learning</div>
     <h1 class="hero-title">
-      Positively<br>
-      Impacting<br>
-      <em>Humanity</em><br>
-      Through Education
-    </h1>
-    <p class="hero-sub">Evidence-based learning, inclusive practices, and ethical behaviour support — for educators, therapists, parents, and professionals.</p>
+  Positively Impacting<br>
+  <em>Humanity.</em><br>
+  Through Education.
+</h1>
+
+    <p class="hero-sub">Providing internationally accessible training, certification pathways, supervision, mentoring, and professional development in Applied Behaviour Analysis (ABA) and Inclusive Education.</p>
     <div class="hero-actions">
       <a href="#courses" class="btn-primary">Our Services</a>
       <a href="#about" class="btn-outline">Learn More</a>
@@ -1022,6 +1036,7 @@
           <li>Behavior Change Procedures</li>
         </ul>
         <div class="course-actions">
+          <a href="iba.html" class="course-btn-email" style="background:#1B4332;color:#fff;border:none;">Learn More →</a>
           <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20the%20IBA%20%E2%80%94%20International%20Behavior%20Analyst%20Course." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
           <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20IBA%20Course" class="course-btn-email">📧 Email</a>
         </div>
@@ -1037,6 +1052,7 @@
         <div class="course-lessons"><span class="course-lessons-dot"></span> 40 Hour Intensive</div>
         <p class="course-desc">Intensive 40-hour training for Interventionist Behaviour Technicians (IBT) and Applied Behaviour Analysis Technicians (ABAT), preparing candidates with the practical skills and competencies required to work directly in behaviour support roles.</p>
         <div class="course-actions">
+          <a href="ibt-abat.html" class="course-btn-email" style="background:#1B4332;color:#fff;border:none;">Learn More →</a>
           <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20the%20IBT%20%26%20ABAT%2040%20Hour%20Courses." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
           <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20IBT%20%26%20ABAT%2040%20Hour%20Courses" class="course-btn-email">📧 Email</a>
         </div>
@@ -1052,12 +1068,40 @@
         <div class="course-lessons"><span class="course-lessons-dot"></span> Ongoing Support</div>
         <p class="course-desc">Structured, professional supervision for candidates working toward their IBA or ABAT certification — guided fieldwork hours, case consultation, and accountability through every stage of certification.</p>
         <div class="course-actions">
+          <a href="supervision.html" class="course-btn-email" style="background:#1B4332;color:#fff;border:none;">Learn More →</a>
           <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%27m%20interested%20in%20Supervision%20Services." target="_blank" class="course-btn-wa">💬 WhatsApp</a>
           <a href="mailto:regaiz@outlook.com?subject=Enquiry%20-%20Supervision%20Services" class="course-btn-email">📧 Email</a>
         </div>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ACCREDITATION -->
+<section class="accred">
+  <div class="accred-header">
+    <div class="eyebrow">Board-Approved Training Provider</div>
+    <h2>Internationally Recognised & Accredited</h2>
+    <p>Our training programmes are approved by the relevant certifying boards and are designed to meet the educational requirements for certification through the Qualified Applied Behavior Analysis Credentialing Board (QABA) and the International Behavior Analysis Organization (IBAO).</p>
+  </div>
+  <div class="accred-logos">
+    <div class="accred-logo-item">
+      <img src="images/logo-ibao-iba.png" alt="IBAO — Approved Content Provider, International Behavior Analyst">
+      <div class="accred-logo-label">IBAO — ACP International Behavior Analyst</div>
+    </div>
+    <div class="accred-logo-item">
+      <img src="images/logo-ibao-ibt.jpg" alt="IBAO — Approved Content Provider, International Behavior Therapist">
+      <div class="accred-logo-label">IBAO — ACP International Behavior Therapist</div>
+    </div>
+    <div class="accred-logo-item">
+      <img src="images/logo-ceu.jpg" alt="CEU Provider — International Behavior Analysis Organization">
+      <div class="accred-logo-label">IBAO — CEU Provider</div>
+    </div>
+    <div class="accred-logo-item">
+      <img src="images/logo-qaba.jpg" alt="QABA — Approved Coursework Provider">
+      <div class="accred-logo-label">QABA — Approved Coursework Provider</div>
+    </div>
   </div>
 </section>
 
@@ -1151,6 +1195,7 @@
         <li><a href="#about">About Us</a></li>
         <li><a href="#regai">Meet Regai</a></li>
         <li><a href="#courses">Services</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>

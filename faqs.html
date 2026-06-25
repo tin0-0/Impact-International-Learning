@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs — Impact International Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  :root {
+    --orange: #F4894B; --orange-dark: #D97635; --green: #1B4332;
+    --white: #FFFFFF; --off-white: #FAF9F7; --light: #F5F0EB;
+    --gray: #6B7280; --text: #1F2937;
+  }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 48px; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; }
+  .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--green); line-height: 1.2; }
+  .nav-logo-text span { display: block; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+  .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 24px; font-weight: 600 !important; border-radius: 2px; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--green); }
+
+  /* PAGE HERO */
+  .page-hero { padding: 140px 80px 80px; background: var(--green); position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: url('images/hero-bg.jpg') center/cover no-repeat; opacity: 0.18; }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 800px; }
+  .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+  .breadcrumb a { color: var(--orange); text-decoration: none; }
+  .page-badge { display: inline-block; background: var(--orange); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 2px; margin-bottom: 24px; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 58px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+  .page-hero p { font-size: 18px; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; }
+
+  /* LAYOUT */
+  .faq-layout { display: block; max-width: 900px; margin: 0 auto; padding: 80px 48px; }
+
+  
+  /* FAQ SECTIONS */
+  .faq-section { margin-bottom: 64px; }
+  .faq-section:last-child { margin-bottom: 0; }
+  .faq-section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--green); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--light); }
+
+  /* ACCORDION */
+  .faq-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .faq-question { width: 100%; text-align: left; background: none; border: none; padding: 20px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.5; transition: color 0.2s; }
+  .faq-question:hover { color: var(--green); }
+  .faq-question.open { color: var(--green); }
+  .faq-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; color: var(--orange); font-weight: 700; transition: background 0.2s, transform 0.3s; margin-top: 2px; }
+  .faq-question.open .faq-icon { background: var(--orange); color: var(--white); transform: rotate(45deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-answer.open { max-height: 600px; }
+  .faq-answer-inner { padding: 0 0 20px; font-size: 15px; color: var(--gray); line-height: 1.8; }
+  .faq-answer-inner ul { padding-left: 20px; margin-top: 10px; }
+  .faq-answer-inner ul li { margin-bottom: 6px; }
+  .faq-answer-inner p + p { margin-top: 12px; }
+
+  /* WHY CHOOSE BOX */
+  .why-box { background: var(--green); padding: 48px; margin-top: 48px; }
+  .why-box h3 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--white); margin-bottom: 24px; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .why-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.85); }
+  .why-tick { color: var(--orange); font-weight: 900; font-size: 16px; }
+
+  /* CTA */
+  .faq-cta { background: var(--light); padding: 64px 48px; text-align: center; margin-top: 0; }
+  .faq-cta h3 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--green); margin-bottom: 12px; }
+  .faq-cta p { font-size: 16px; color: var(--gray); margin-bottom: 32px; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--orange); color: var(--white); font-size: 15px; font-weight: 700; padding: 16px 36px; text-decoration: none; display: inline-block; border-radius: 2px; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--orange-dark); }
+  .btn-outline-green { border: 2px solid var(--green); color: var(--green); font-size: 15px; font-weight: 700; padding: 14px 36px; text-decoration: none; display: inline-block; border-radius: 2px; transition: all 0.2s; }
+  .btn-outline-green:hover { background: var(--green); color: var(--white); }
+
+  footer { background: var(--green); padding: 64px 80px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-top: 12px; max-width: 280px; }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 10px; }
+  footer ul a { font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  footer ul a:hover { color: var(--white); }
+  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--white); }
+  .footer-logo-text span { display: block; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; flex-direction: column; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); padding: 24px; gap: 20px; border-bottom: 2px solid var(--orange); z-index: 99; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .page-hero { padding: 120px 24px 60px; }
+    .faq-layout { grid-template-columns: 1fr; padding: 48px 24px; }
+    .faq-sidebar { display: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .faq-cta { padding: 48px 24px; }
+    footer { padding: 48px 24px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.jpg" alt="IIL Logo">
+    <div class="nav-logo-text">Impact International <span>Learning</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#regai">Meet Regai</a></li>
+    <li><a href="index.html#courses">Services</a></li>
+    <li><a href="faqs.html" class="active">FAQs</a></li>
+    <li><a href="testimonials.html">Testimonials</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Enrol Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → FAQs</div>
+    <div class="page-badge">Got Questions?</div>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about our ABA training programmes, certification pathways, enrolment, and supervision services.</p>
+  </div>
+</section>
+
+<div class="faq-layout">
+
+  <!-- FAQ CONTENT -->
+  <div class="faq-content">
+
+    <div class="faq-section" id="about-aba">
+      <div class="faq-section-title">About Applied Behaviour Analysis (ABA)</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What is Applied Behaviour Analysis (ABA)? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Applied Behaviour Analysis (ABA) is a scientific approach to understanding and improving behaviour. ABA uses evidence-based strategies to teach new skills, increase positive behaviours, and reduce behaviours that interfere with learning, communication, independence, and quality of life.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Who can benefit from ABA? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">ABA can benefit individuals of all ages. It is commonly used to support individuals with autism, developmental disabilities, learning difficulties, behavioural challenges, and skill development needs in educational, clinical, workplace, and community settings.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Is ABA only for autism? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Although ABA is widely recognised for supporting individuals with Autism Spectrum Disorder (ASD), its principles are applied across many areas including education, mental health, organisational behaviour management, parenting, sports coaching, and staff training.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Is ABA evidence-based? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. ABA is one of the most researched and evidence-based approaches for behaviour change and skill development, supported by decades of scientific research.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What careers can I pursue with ABA training? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">ABA training can lead to a wide range of career opportunities, including:
+          <ul>
+            <li>Behaviour Technician</li>
+            <li>Autism Support Practitioner</li>
+            <li>Special Education Professional</li>
+            <li>Behaviour Analyst</li>
+            <li>Clinical Supervisor</li>
+            <li>Educational Consultant</li>
+            <li>Program Coordinator</li>
+            <li>School-Based Behaviour Specialist</li>
+            <li>Early Intervention Specialist</li>
+            <li>Behaviour Consultant</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="programmes">
+      <div class="faq-section-title">About Our Training Programmes</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What courses do you offer? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">We currently offer:
+          <ul>
+            <li>International Behavior Analyst (IBA) Certification Training</li>
+            <li>Intervention Behaviour Technician (IBT) Training</li>
+            <li>Applied Behaviour Analysis Technician (ABAT) Training</li>
+            <li>Professional Supervision Services</li>
+            <li>Parent and Professional Workshops</li>
+            <li>Continuing Education (CEU) Events</li>
+            <li>Inclusive Education Training</li>
+            <li>Mentoring and Professional Development Programmes</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Are your courses delivered online? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. All our training programmes are delivered 100% online, allowing participants from anywhere in the world to attend live sessions and access learning resources remotely.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Can I study from any country? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely. Our online learning model allows students from Africa, Asia, Europe, the Middle East, Australia, and the Americas to participate.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Are classes live or self-paced? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Training programmes may include live instructor-led sessions, guided learning activities, recorded resources, and independent study components depending on the programme.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Will I receive a certificate after completing training? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Participants who successfully complete all training requirements will receive a certificate of completion.</div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="enrolment">
+      <div class="faq-section-title">Enrolment & Entry Requirements</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Do I need prior ABA experience to enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Our IBT and ABAT programmes are suitable for beginners and do not require previous ABA experience.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What qualifications do I need for the IBT or ABAT programme? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Generally, participants should:
+          <ul>
+            <li>Be at least 18 years old</li>
+            <li>Have basic English proficiency</li>
+            <li>Have completed secondary/high school education (recommended)</li>
+            <li>Have an interest in working with individuals who require behavioural or educational support</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What qualifications do I need for the IBA programme? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">The IBA certification pathway offers both Bachelor's Degree and Master's Degree entry routes.
+          <ul>
+            <li><strong>Bachelor's Degree Pathway:</strong> Candidates must hold a bachelor's degree in psychology, education, special education, social work, healthcare, or a related field.</li>
+            <li><strong>Master's Degree Pathway:</strong> Candidates with a master's degree in a relevant discipline may pursue the advanced pathway toward IBA certification.</li>
+          </ul>
+          <p>If you are unsure which pathway is suitable for you, contact us and we will guide you through the process.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Can university students enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. University students studying psychology, education, special education, social work, healthcare, or related fields are encouraged to enrol.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Can parents enrol in ABA courses? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Parents often enrol to better understand behavioural principles and support their children more effectively at home and in the community.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">I am not from a psychology or education background. Can I still enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Many individuals from healthcare, social services, business, and other professional backgrounds successfully enter the field of ABA through our training programmes.</div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="certification">
+      <div class="faq-section-title">Certification & Supervision</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">What is supervision in ABA? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Supervision is a structured professional process where an experienced supervisor provides guidance, feedback, mentoring, and competency development to trainees working toward certification.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Do you provide supervision? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. We provide professional supervision services for candidates pursuing IBA, IBT, and ABAT certification pathways.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Is supervision conducted online? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Supervision sessions are conducted virtually, allowing candidates from any country to access high-quality professional support.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Does completing training automatically make me certified? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Certification requirements are determined by the relevant certifying board and may include additional requirements such as supervision, examinations, and fieldwork experience beyond the training programme itself.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Which certification boards are associated with your training pathways? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Our training pathways are aligned with internationally recognised credentialing organisations including QABA (Qualified Applied Behavior Analysis Credentialing Board) and IBAO (International Behavior Analysis Organization), depending on the programme and certification pathway selected.</div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="international">
+      <div class="faq-section-title">International Recognition</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Will my certificate be recognised internationally? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Our training and certification pathways are aligned with internationally recognised credentialing boards, including QABA and IBAO. Both are international certification bodies whose credentials are held by professionals across multiple countries. However, recognition may vary depending on the requirements of individual employers, government agencies, and licensing authorities in a specific country. We encourage prospective students to review local regulations and contact us to discuss how these certifications support your career goals.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Can I work internationally after completing ABA training? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Many ABA professionals work internationally in schools, clinics, disability services, early intervention programmes, universities, and community support services across different regions of the world.</div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="students">
+      <div class="faq-section-title">International Students</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">I live in Africa. Can I enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. We welcome participants from all African countries and provide fully online learning opportunities.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">I live outside Africa. Can I enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Our programmes are open to participants worldwide.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">I am not a native English speaker. Can I still enrol? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. As long as you can understand and communicate in English sufficiently to participate in training activities and assessments.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Do I need to travel to attend classes? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">No. All training, workshops, supervision sessions, and mentoring services are provided fully online.</div></div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="payments">
+      <div class="faq-section-title">Payments & Student Support</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">How do I register? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">You can complete the enquiry form on our website or contact Regai directly via WhatsApp or email, and our team will guide you through the registration process.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Do you offer payment plans? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Payment plan availability varies by programme. Please contact us for current options and available payment arrangements.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Will I receive support during the course? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Participants receive guidance from instructors and have opportunities to ask questions, receive feedback, and access ongoing support throughout their learning journey.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">Do you offer mentoring after training? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. We provide mentoring and professional development support to help learners grow in their careers and progress toward advanced certifications.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">How can I contact you? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">You can contact us through the enquiry form on our website, by email at regaiz@outlook.com, or via WhatsApp at +971 58 550 6346.</div></div>
+      </div>
+    </div>
+
+    <!-- WHY CHOOSE -->
+    <div class="why-box">
+      <h3>Why Choose Impact International Learning?</h3>
+      <div class="why-grid">
+        <div class="why-item"><span class="why-tick">✓</span> 100% Online Learning</div>
+        <div class="why-item"><span class="why-tick">✓</span> International Student Access</div>
+        <div class="why-item"><span class="why-tick">✓</span> QABA & IBAO Aligned Pathways</div>
+        <div class="why-item"><span class="why-tick">✓</span> Experienced ABA Professionals</div>
+        <div class="why-item"><span class="why-tick">✓</span> Professional Supervision Services</div>
+        <div class="why-item"><span class="why-tick">✓</span> Parent & Professional Workshops</div>
+        <div class="why-item"><span class="why-tick">✓</span> Continuing Education (CEU) Opportunities</div>
+        <div class="why-item"><span class="why-tick">✓</span> Mentoring & Career Development Support</div>
+        <div class="why-item"><span class="why-tick">✓</span> Evidence-Based Training Programmes</div>
+        <div class="why-item"><span class="why-tick">✓</span> Global Community of Learners</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="faq-cta">
+  <h3>Still Have Questions?</h3>
+  <p>Get in touch with Regai directly — he's happy to answer anything not covered here.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/971585506346?text=Hi%20Regai%2C%20I%20have%20a%20question%20about%20your%20training%20programmes." target="_blank" class="btn-primary">💬 WhatsApp Regai</a>
+    <a href="mailto:regaiz@outlook.com?subject=General%20Enquiry%20-%20Impact%20International%20Learning" class="btn-outline-green">📧 Send an Email</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-text">Impact International Learning<span>ABA & SEN Training</span></div>
+      <p>Positively Impacting Humanity Through Education, Behaviour Support, and Professional Development.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="iba.html">IBA Course</a></li>
+        <li><a href="ibt-abat.html">IBT & ABAT Courses</a></li>
+        <li><a href="supervision.html">Supervision Services</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="mailto:regaiz@outlook.com">regaiz@outlook.com</a></li>
+        <li><a href="tel:+971585506346">+971 58 550 6346</a></li>
+        <li><a>UAE — Serving Globally</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Impact International Learning. All Rights Reserved.</p>
+    <p style="color:rgba(255,255,255,0.2);font-size:12px;">Founded by Regai Peter Zata</p>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-question.open').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    // Open clicked if it was closed
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+    sidebarLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
